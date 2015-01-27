@@ -2,10 +2,10 @@ box: tsechov/oracle-java7-sbt.0.13.0@0.0.4
 build:
     steps:
         - script:
-            name: docker login --username="" --password="" --email=""
+            name: docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
             code: |-
-                docker login --username="" --password="" --email=""
+                docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
         - script:
-            name: sbt clean compile
+            name: sbt clean compile dockerBuildAndPush
             code: |-
                 sbt clean compile dockerBuildAndPush
