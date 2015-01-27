@@ -14,9 +14,9 @@ build:
               sudo apt-get install python-software-properties git-core curl wget -y
               sudo add-apt-repository ppa:webupd8team/java -y
               sudo apt-get update
-              echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
-              echo debconf shared/accepted-oracle-license-v1-1 seen true |  sudo debconf-set-selections
-              sudo apt-get install oracle-java7-installer -qq -y
+
+              sudo echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+              sudo apt-get install oracle-java7-set-default -qq -y
 
               wget http://dl.bintray.com/sbt/debian/sbt-0.13.7.deb
               sudo dpkg -i sbt-0.13.7.deb
