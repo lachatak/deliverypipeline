@@ -8,20 +8,19 @@ build:
               uname -a
               docker info
               docker --version
-              java --version
-#              sudo apt-get update
-#              sudo apt-get install -y build-essential
-#              sudo apt-get install -y software-properties-common
-#              sudo apt-get install python-software-properties git-core curl wget -y
-#              sudo add-apt-repository ppa:webupd8team/java -y
-#              sudo apt-get update
-#              echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
-#              echo debconf shared/accepted-oracle-license-v1-1 seen true |  sudo debconf-set-selections
-#              sudo apt-get install oracle-java7-installer -qq
-#
-#              wget http://dl.bintray.com/sbt/debian/sbt-0.13.7.deb
-#              sudo dpkg -i sbt-0.13.7.deb
-#              sudo apt-get update
+              sudo apt-get update
+              sudo apt-get install -y build-essential
+              sudo apt-get install -y software-properties-common
+              sudo apt-get install python-software-properties git-core curl wget -y
+              sudo add-apt-repository ppa:webupd8team/java -y
+              sudo apt-get update
+              echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+              echo debconf shared/accepted-oracle-license-v1-1 seen true |  sudo debconf-set-selections
+              sudo apt-get install oracle-java7-installer -qq -y
+
+              wget http://dl.bintray.com/sbt/debian/sbt-0.13.7.deb
+              sudo dpkg -i sbt-0.13.7.deb
+              sudo apt-get update
 
         - script:
             name: docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
