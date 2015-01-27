@@ -1,0 +1,23 @@
+language: scala
+
+scala:
+   - 2.11.4
+
+before_script:
+ - export PATH=$PATH:$SHIPPABLE_REPO_DIR
+ - docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
+
+build_image: shippableimages/ubuntu1404_scala:0.0.1
+
+script:
+ - export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
+ - sbt clean compile dockerBuildAndPush
+
+notifications:
+ email:
+   recipients:
+   - krisztian.lachata@gmail.com
+
+env:
+  global:
+  - secure: jj0P7IasMiW3LnbxrYOaO8TuuIHF2fn0hm/DuX+0wCVlJKQ0LHREfLCiUDL9DXKVkwTXhifo8LIJunBcmYzpmJzQvT6tRIFWBr2ubAMtTUu3YlJfMO15xVznWXezwp6ITLox201c4EVTYRIzyVPawGL4edRhoVWwp/kcknJionslOUzPAyLYVkO5LN8cO/CigBcxHZKFYx6LF40bxP8PPnHJYTy51Vk2GoA1rLipMBwcZc8X8w3QN/1UYQv21cVKIOlksCM7Q4nLjm3OEtc0l50Dpu+g87AsbZHLYrYz4nsr783tMYymsyvhqlF+oM3si2uTbKoJAs50DiEguRcAQQ==
