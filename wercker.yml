@@ -4,7 +4,7 @@ build:
         - script:
             name: Prepare
             code: |-
-                 # Upgrade Ubuntu
+                # Upgrade Ubuntu
                 sudo apt-get update
                 sudo apt-get install -y update-manager-core
                 sudo do-release-upgrade -f DistUpgradeViewNonInteractive -m server -d
@@ -22,7 +22,7 @@ build:
                 echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
                 echo debconf shared/accepted-oracle-license-v1-1 seen true |  sudo debconf-set-selections
                 sudo apt-get install oracle-java7-installer -qq -y
-                  
+             
                 # Install sbt
                 wget http://dl.bintray.com/sbt/debian/sbt-0.13.7.deb		
                 sudo dpkg -i sbt-0.13.7.deb		
