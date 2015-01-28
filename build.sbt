@@ -37,5 +37,5 @@ imageName in docker := {
   ImageName(
     namespace = Some("lachatak"),
     repository = "deliverypipeline",
-    tag = Some(name.value))
+    tag = Some("latest"))
 }
