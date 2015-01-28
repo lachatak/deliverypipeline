@@ -26,8 +26,7 @@ build:
                 # Install sbt
                 wget http://dl.bintray.com/sbt/debian/sbt-0.13.7.deb
                 sudo dpkg -i sbt-0.13.7.deb
-                sudo apt-get update
-                
+
                 # Install EB CLI
                 sudo add-apt-repository ppa:fkrull/deadsnakes -y
                 sudo apt-get update
