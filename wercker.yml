@@ -36,7 +36,7 @@ build:
                 sudo python get-pip.py
                 sudo pip install awsebcli
         - script:
-            name: docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
+            name: Prepare Docker
             code: |-
                 docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
         - script:
