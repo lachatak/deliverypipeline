@@ -39,6 +39,14 @@ build:
             code: |-
                 docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
         - script:
-            name: sbt clean compile dockerBuildAndPush
+            name: Build
             code: |-
                 sbt clean compile dockerBuildAndPush
+       - script:
+            name: Deploy
+            code: |-
+                export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+                eb init deliverypipeline -r eu-west-1  -p docker
+                eb create deliverypipeline-dev
+                eb start
