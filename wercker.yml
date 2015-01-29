@@ -48,5 +48,5 @@ build:
                 export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
                 export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
                 eb init deliverypipeline -r eu-west-1  -p docker
-                eb create deliverypipeline-dev -s
-                #eb deploy
+                #eb create deliverypipeline-dev -s
+                eb deploy
