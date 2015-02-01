@@ -23,7 +23,8 @@ before_script:
   - export DOCKER_CERT_PATH=./cert
   - export DOCKER_TLS_VERIFY=1
   - sudo docker version
-  #- sudo docker -d -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375
+  - sudo docker -d -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375
+  - ls -l /var/run/docker.sock
   - sudo docker info
   - docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
 
