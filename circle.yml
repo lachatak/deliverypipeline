@@ -21,7 +21,7 @@ deployment:
     commands:
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - sbt dockerPush
-    - deploy.sh $CIRCLE_SHA1
+    - ./deploy.sh $CIRCLE_SHA1
 #    - eb init deliverypipeline -r eu-west-1  -p docker
 #    - sed "s/<TAG>/$CIRCLE_SHA1/" < Dockerrun.aws.json.template > Dockerrun.aws.json
 #    - eb deploy --quiet
