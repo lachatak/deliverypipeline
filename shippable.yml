@@ -20,7 +20,7 @@ before_script:
   - echo "aws_secret_access_key = $AWSSecretKey" >> ~/.aws/config
   - export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
   - docker --version
-  - sudo docker -d
+  - docker info
   - docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
 
 script:
