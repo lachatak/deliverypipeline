@@ -1,6 +1,7 @@
 package org.kaloz.deliverypipeline
 
 import java.util.Date
+import java.util.concurrent.atomic.AtomicInteger
 
 import akka.actor.Actor
 import spray.http.MediaTypes._
@@ -18,6 +19,10 @@ trait MyService extends HttpService {
 
   val deployTime = new Date
 
+  val atomic = new AtomicInteger
+
+  def counter = atomic.incrementAndGet
+
   val myRoute =
     path("") {
       get {
@@ -26,8 +31,13 @@ trait MyService extends HttpService {
             <html>
               <body>
                 <h1>Last deploytime is
-                  <i>$
+                  <i>
                     {deployTime}
+                  </i>
+                  !</h1>
+                <h1>Number of calls
+                  <i>
+                    {counter}
                   </i>
                   !</h1>
               </body>
