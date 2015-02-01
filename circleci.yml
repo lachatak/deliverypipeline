@@ -1,0 +1,28 @@
+machine:
+  java:
+    version: oraclejdk7
+  services: docker
+
+dependencies:
+  cache_directories:
+    - ~/.sbt
+    - ~/.ivy2
+    - ~/.m2
+  pre:
+    - pip install awsebcli
+    - sbt --version
+    - java -version
+    - docker version
+
+test:
+  pre:
+    - docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
+  override:
+    - sbt clean dockerBuildAndPush
+
+deployment:
+  release:
+    branch: master
+    commands:
+      - eb init deliverypipeline -r eu-west-1  -p docker
+      - eb deploy

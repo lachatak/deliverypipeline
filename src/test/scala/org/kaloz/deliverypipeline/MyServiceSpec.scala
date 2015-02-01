@@ -11,7 +11,7 @@ class MyServiceSpec extends Specification with Specs2RouteTest with MyService {
 
     "return a greeting for GET requests to the root path" in {
       Get() ~> myRoute ~> check {
-        responseAs[String] must contain("Say hello")
+        responseAs[String] must contain("Last deploytime is")
       }
     }
 
