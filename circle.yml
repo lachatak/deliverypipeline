@@ -4,16 +4,12 @@ machine:
 
 dependencies:
   pre:
-#    - sudo add-apt-repository ppa:fkrull/deadsnakes -y
-#    - sudo apt-get update
-#    - sudo apt-get install python3.4
-#    - wget https://bootstrap.pypa.io/get-pip.py
-#    - sudo python get-pip.py
     - sudo pip install awsebcli
-
+    - export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
+    
 test:
   override:
-    - sbt clean test docker
+    - sbt test docker
   post:
     - docker run -d -p 8080:8080 lachatak/deliverypipeline:latest; sleep 10
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
