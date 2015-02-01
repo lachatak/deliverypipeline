@@ -4,6 +4,12 @@ import sbtdocker.mutable.Dockerfile
 
 dockerSettings
 
+val gitHeadCommitSha = settingKey[String]("current git commit SHA")
+
+gitHeadCommitSha in ThisBuild := Process("git rev-parse HEAD").lines.head
+
+version in ThisBuild := gitHeadCommitSha.value
+
 // Make docker depend on the package task, which generates a jar file of the application code
 docker <<= docker.dependsOn(Keys.`package`.in(Compile, packageBin))
 
@@ -36,6 +42,6 @@ dockerfile in docker <<= (artifactPath.in(Compile, packageBin), managedClasspath
 imageName in docker := {
   ImageName(
     namespace = Some("lachatak"),
-    repository = "deliverypipeline",
-    tag = Some("latest"))
+    repository = name.value,
+    tag = Some(version.value))
 }

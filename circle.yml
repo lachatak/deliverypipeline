@@ -6,12 +6,12 @@ dependencies:
   pre:
     - sudo pip install awsebcli
     - export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
-    
+
 test:
   override:
     - sbt test docker
   post:
-    - docker run -d -p 8080:8080 lachatak/deliverypipeline:latest; sleep 10
+    - docker run -d -p 8080:8080 lachatak/deliverypipeline:$CIRCLE_SHA1; sleep 10
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
 
 deployment:
@@ -21,4 +21,5 @@ deployment:
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - sbt dockerPush
     - eb init deliverypipeline -r eu-west-1  -p docker
-    - eb deploy
+    - sed "s/<TAG>/$CIRCLE_SHA1/" < Dockerrun.aws.json.template > Dockerrun.aws.json
+    - eb deploy --quiet
