@@ -12,7 +12,7 @@ test:
   override:
     - sbt test docker
   post:
-    - docker run -d -p 8080:8080 lachatak/deliverypipeline:$CIRCLE_SHA1; sleep 10
+    - docker run -d -p 8080:8080 lachatak/deliverypipeline:1.0.0-SNAPSHOT; sleep 10
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
 
 deployment:
@@ -22,7 +22,7 @@ deployment:
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - sbt dockerPush
     - sudo chmod 774 deploy.sh
-    - ./deploy.sh $CIRCLE_SHA1
-#    - eb init deliverypipeline -r eu-west-1  -p docker
+#    - ./deploy.sh $CIRCLE_SHA1
+    - eb init deliverypipeline -r eu-west-1  -p docker
 #    - sed "s/<TAG>/$CIRCLE_SHA1/" < Dockerrun.aws.json.template > Dockerrun.aws.json
-#    - eb deploy --quiet
+    - eb deploy --quiet

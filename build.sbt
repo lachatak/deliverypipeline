@@ -4,11 +4,11 @@ import sbtdocker.mutable.Dockerfile
 
 dockerSettings
 
-val gitHeadCommitSha = settingKey[String]("current git commit SHA")
-
-gitHeadCommitSha in ThisBuild := Process("git rev-parse HEAD").lines.head
-
-version in ThisBuild := gitHeadCommitSha.value
+//val gitHeadCommitSha = settingKey[String]("current git commit SHA")
+//
+//gitHeadCommitSha in ThisBuild := Process("git rev-parse HEAD").lines.head
+//
+//version in ThisBuild := gitHeadCommitSha.value
 
 // Make docker depend on the package task, which generates a jar file of the application code
 docker <<= docker.dependsOn(Keys.`package`.in(Compile, packageBin))
