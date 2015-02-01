@@ -22,6 +22,8 @@ after_success :
   - eb init deliverypipeline -r eu-west-1  -p docker
   - eb deploy
 
+commit_container: lachatak/deliverypipeline
+
 notifications:
  email:
    recipients:
