@@ -8,16 +8,15 @@ dependencies:
     - ~/.sbt
     - ~/.ivy2
     - ~/.m2
-  pre:
+  override:
     - pip install awsebcli
     - sbt --version
     - java -version
     - docker version
 
 test:
-  pre:
-    - docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
   override:
+    - docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
     - sbt clean dockerBuildAndPush
 
 deployment:
