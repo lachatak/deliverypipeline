@@ -20,10 +20,11 @@ before_script:
   - echo "aws_secret_access_key = $AWSSecretKey" >> ~/.aws/config
   - export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
   - export DOCKER_HOST="tcp://0.0.0.0:2375"
+  - export DOCKER_CERT_PATH=./cert
   - export DOCKER_TLS_VERIFY=1
-  - docker version
+  - sudo docker version
   #- sudo docker -d -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375
-  - docker info
+  - sudo docker info
   - docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
 
 script:
