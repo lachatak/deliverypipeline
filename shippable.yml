@@ -23,7 +23,7 @@ before_script:
 #  - ls -l /var/run/docker.sock
   - sudo docker --version
 #  - sudo docker info
-  - sudo docker start
+#  - sudo docker start
   - docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
 
 script:
