@@ -1,26 +1,21 @@
 machine:
-  java:
-    version: oraclejdk7
+  services:
+    - docker
 
 dependencies:
-  cache_directories:
-    - ~/.sbt
-    - ~/.ivy2
-    - ~/.m2
-  override:
-    - pip install awsebcli
-    - sbt --version
-    - java -version
-    - docker version
+  pre:
+    - sbt clean docker
 
 test:
-  override:
-    - docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
-    - sbt clean dockerBuildAndPush
+  post:
+    - docker run -d -p 8080:8080 lachatak/deliverypipeline:latest; sleep 10
+    - curl --retry 10 --retry-delay 5 -v http://localhost:8080
 
 deployment:
-  release:
+  elasticbeanstalk:
     branch: master
     commands:
-      - eb init deliverypipeline -r eu-west-1  -p docker
-      - eb deploy
+    - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - sbt dockertPush
+    - eb init deliverypipeline -r eu-west-1  -p docker
+    - eb deploy
