@@ -1,0 +1,32 @@
+language: scala
+
+scala:
+   - 2.11.4
+
+build_image: shippableimages/ubuntu1404_scala:0.0.1
+
+before_install:
+  - pip install awsebcli
+
+before_script:
+  - mkdir -p ~/.aws
+  - echo '[profile eb-cli]' > ~/.aws/config
+  - echo "aws_access_key_id = $AWSAccessKeyId" >> ~/.aws/config
+  - echo "aws_secret_access_key = $AWSSecretKey" >> ~/.aws/config
+
+script:
+ - export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
+ - sbt clean compile
+
+after_success :
+  - eb init deliverypipeline -r eu-west-1  -p docker
+  - eb deploy
+
+notifications:
+ email:
+   recipients:
+   - krisztian.lachata@gmail.com
+
+env:
+  global:
+  - secure: gLYa8QgIEu5XmxxfhjuYspCOC+blbvsUEqZQip+KIL/lH6genpIFnCu/tOQzkBh5V+peZLHKNemT9CKteo9zycYfdwn2mp1HdrrnFhjnSCrIf0/gnTYICeZWKfV9Bj19D4hYXsyxZlS4xkQg4owI0vT7G/oggAbliEdmQ+WaJO2/Q3YG4ICfge6xwmlQgQxSxgEwpn2+u9cz1QA+xcq67wwGEypV0bqxAiYGTkjDuzN4JFEnO0K81657qo8lAUKVjK+j/O2eHYMu32lJIfyfXjvpM2Dk1QFGS70UrTK/d7mwnSE+zjGtvQseW00aNBmOxKH2Vq56y1XZKaW9J7tPbw==

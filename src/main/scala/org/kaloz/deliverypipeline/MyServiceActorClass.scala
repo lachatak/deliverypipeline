@@ -1,5 +1,7 @@
 package org.kaloz.deliverypipeline
 
+import java.util.Date
+
 import akka.actor.Actor
 import spray.http.MediaTypes._
 import spray.routing._
@@ -14,6 +16,8 @@ class MyServiceActor extends Actor with MyService {
 
 trait MyService extends HttpService {
 
+  val deployTime = new Date
+
   val myRoute =
     path("") {
       get {
@@ -21,10 +25,10 @@ trait MyService extends HttpService {
           complete {
             <html>
               <body>
-                <h1>Say hello to
-                  <i>spray-routing</i>
-                  on
-                  <i>spray-can</i>
+                <h1>Last deploytime is
+                  <i>$
+                    {deployTime}
+                  </i>
                   !</h1>
               </body>
             </html>
