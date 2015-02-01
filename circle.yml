@@ -4,7 +4,12 @@ machine:
 
 dependencies:
   pre:
-    - pip install awsebcli
+#    - sudo add-apt-repository ppa:fkrull/deadsnakes -y
+#    - sudo apt-get update
+#    - sudo apt-get install python3.4
+#    - wget https://bootstrap.pypa.io/get-pip.py
+#    - sudo python get-pip.py
+    - sudo pip install awsebcli
 
 test:
   override:
