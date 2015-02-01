@@ -7,11 +7,8 @@ build_image: shippableimages/ubuntu1404_scala:0.0.1
 
 before_install:
   - pip install awsebcli
-  - sudo apt-get install apt-transport-https
-  - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
-  - sudo sh -c "echo deb https://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
   - sudo apt-get update
-  - sudo apt-get install lxc-docker -y
+  - sudo apt-get install docker.io -y
 
 before_script:
   - mkdir -p ~/.aws
@@ -22,9 +19,9 @@ before_script:
   - export DOCKER_HOST="tcp://0.0.0.0:2375"
   - export DOCKER_CERT_PATH=./cert
   - export DOCKER_TLS_VERIFY=1
-  - sudo docker version
   - sudo docker -d -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375
   - ls -l /var/run/docker.sock
+  - sudo docker version
   - sudo docker info
   - docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD" --email="$DOCKER_EMAIL"
 
