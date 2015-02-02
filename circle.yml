@@ -5,7 +5,7 @@ machine:
 dependencies:
   pre:
     - sudo pip install awsebcli
-    - sudo pip install awscli
+#   - sudo pip install awscli
     - export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
 
 test:
@@ -21,8 +21,8 @@ deployment:
     commands:
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - sbt dockerPush
-    - sudo chmod 774 deploy.sh
-#    - ./deploy.sh $CIRCLE_SHA1
+#   - sudo chmod 774 deploy.sh
+#   - ./deploy.sh $CIRCLE_SHA1
     - eb init deliverypipeline -r eu-west-1  -p docker
-#    - sed "s/<TAG>/$CIRCLE_SHA1/" < Dockerrun.aws.json.template > Dockerrun.aws.json
-    - eb deploy --quiet
+#   - sed "s/<TAG>/$CIRCLE_SHA1/" < Dockerrun.aws.json.template > Dockerrun.aws.json
+    - eb deploy -nh
