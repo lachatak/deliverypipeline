@@ -23,7 +23,7 @@ deployment:
     - sbt dockerPush
 #   - sudo chmod 774 deploy.sh
 #   - ./deploy.sh $CIRCLE_SHA1
-#   - eb init deliverypipeline -r eu-west-1  -p docker
+    - eb init deliverypipeline -r eu-west-1  -p docker
 #   - sed "s/<TAG>/$CIRCLE_SHA1/" < Dockerrun.aws.json.template > Dockerrun.aws.json
-    - eb deploy deliverypipeline-dev -r eu-west-1:
+    - eb deploy deliverypipeline-dev:
         timeout: 600
