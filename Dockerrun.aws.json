@@ -8,5 +8,11 @@
     {
       "ContainerPort": "8080"
     }
+  ],
+  "Volumes": [
+    {
+      "HostDirectory": "/tmp/deliverypipeline",
+      "ContainerDirectory": "/tmp/deliverypipeline"
+    }
   ]
 }

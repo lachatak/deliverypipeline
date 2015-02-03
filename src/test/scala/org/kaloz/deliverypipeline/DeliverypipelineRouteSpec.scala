@@ -1,17 +1,23 @@
 package org.kaloz.deliverypipeline
 
+import java.util.Date
+
 import org.specs2.mutable.Specification
 import spray.http.StatusCodes._
 import spray.testkit.Specs2RouteTest
 
-class MyServiceSpec extends Specification with Specs2RouteTest with MyService {
+class DeliverypipelineRouteSpec extends Specification with Specs2RouteTest with DeliverypipelineRoute {
   def actorRefFactory = system
+
+  override def deployHistory: List[Date] = List(new Date())
+
+  override def calls(): Int = 3
 
   "MyService" should {
 
     "return a greeting for GET requests to the root path" in {
       Get() ~> myRoute ~> check {
-        responseAs[String] must contain("Last deploytime is")
+        responseAs[String] must contain("Deploy history")
       }
     }
 
@@ -28,4 +34,5 @@ class MyServiceSpec extends Specification with Specs2RouteTest with MyService {
       }
     }
   }
+
 }
