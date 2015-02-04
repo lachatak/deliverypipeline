@@ -24,7 +24,7 @@ class DeliverypipelineService extends PersistentActor with ActorLogging with Del
 
   def calls() = {
 
-    println(s"Number of files: ", getListOfFiles("/tmp/deliverypipeline/snapshosts").size)
+    println(s"Number of files: ", getListOfFiles("/tmp/deliverypipeline/snapshots").size)
 
     state = state.call
     log.info(s"save state: $state")
