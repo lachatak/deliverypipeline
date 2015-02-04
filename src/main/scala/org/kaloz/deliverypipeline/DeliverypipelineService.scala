@@ -1,5 +1,6 @@
 package org.kaloz.deliverypipeline
 
+import java.io.File
 import java.util.Date
 
 import akka.actor.ActorLogging
@@ -22,6 +23,9 @@ class DeliverypipelineService extends PersistentActor with ActorLogging with Del
   def deployHistory = state.deployHistory
 
   def calls() = {
+
+    println(s"Number of files: ", new File("/tmp/deliverypipeline/snapshosts").listFiles().count(f => true))
+
     state = state.call
     log.info(s"save state: $state")
     saveSnapshot(state)
