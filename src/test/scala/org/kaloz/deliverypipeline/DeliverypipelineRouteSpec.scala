@@ -13,16 +13,16 @@ class DeliverypipelineRouteSpec extends Specification with Specs2RouteTest with 
 
   override def calls(): Int = 3
 
-  "MyService" should {
+  "DeliverypipelineRoute" should {
 
-    "return a greeting for GET requests to the root path" in {
+    "return a the deploy history for GET requests to the root path" in {
       Get() ~> myRoute ~> check {
         responseAs[String] must contain("Deploy history")
       }
     }
 
     "leave GET requests to other paths unhandled" in {
-      Get("/kermit") ~> myRoute ~> check {
+      Get("/nothing") ~> myRoute ~> check {
         handled must beFalse
       }
     }
