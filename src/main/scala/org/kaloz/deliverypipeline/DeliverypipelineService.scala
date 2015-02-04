@@ -24,7 +24,7 @@ class DeliverypipelineService extends PersistentActor with ActorLogging with Del
 
   def calls() = {
 
-    println(s"Number of files: ", new File("/tmp/deliverypipeline/snapshosts").listFiles().count(f => true))
+    println(s"Number of files: ", getListOfFiles("/tmp/deliverypipeline/snapshosts").size)
 
     state = state.call
     log.info(s"save state: $state")
@@ -41,6 +41,15 @@ class DeliverypipelineService extends PersistentActor with ActorLogging with Del
   }
 
   override def receiveCommand: Receive = runRoute(myRoute)
+
+  def getListOfFiles(dir: String):List[File] = {
+    val d = new File(dir)
+    if (d.exists && d.isDirectory) {
+      d.listFiles.filter(_.isFile).toList
+    } else {
+      List[File]()
+    }
+  }
 
 }
 
