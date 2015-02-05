@@ -11,8 +11,8 @@
   ],
   "Volumes": [
     {
-      "HostDirectory": "/tmp/deliverypipeline",
-      "ContainerDirectory": "/tmp/deliverypipeline"
+      "HostDirectory": "/tmp/deliverypipeline/snapshots",
+      "ContainerDirectory": "/tmp/deliverypipeline/snapshots"
     }
   ]
 }
