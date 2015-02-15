@@ -12,10 +12,13 @@ import scala.concurrent.duration._
 object Boot extends App {
 
   val conf = System.getProperty("DELIVERY_CONF", "application.conf")
+  val conf2 = System.getenv("DELIVERY_CONF")
 
-  println(System.getenv())
+  println("envs: " + System.getenv())
+  println("props: " + System.getProperties())
   println(conf)
-  implicit val system = ActorSystem("deliverypipeline", ConfigFactory.load(System.getProperty("DELIVERY_CONF", "application.conf") ))
+  println(conf2)
+  implicit val system = ActorSystem("deliverypipeline", ConfigFactory.load(System.getProperty("DELIVERY_CONF", "application.conf")))
 
   val service = system.actorOf(Props[DeliverypipelineService], "deliverypipeline-service")
 
