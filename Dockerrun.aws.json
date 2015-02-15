@@ -14,5 +14,6 @@
       "HostDirectory": "/app/application.conf",
       "ContainerDirectory": "/app/application.conf"
     }
-  ]
+  ],
+  "Logging": "/app/deliverypipeline.log"
 }
