@@ -14,8 +14,17 @@ object Boot extends App {
 
   val config: String = System.getenv().asScala.getOrElse("DELIVERY_CONF", "application.conf")
 
+  val factory = ConfigFactory.load(config)
+
+  println(System.getenv())
+  println(System.getenv().get("DELIVERY_CONF"))
   println(config)
-  implicit val system = ActorSystem("deliverypipeline", ConfigFactory.load(config))
+
+  io.Source.fromFile(config).foreach{
+    print
+  }
+
+  implicit val system = ActorSystem("deliverypipeline", factory)
 
   val service = system.actorOf(Props[DeliverypipelineService], "deliverypipeline-service")
 
