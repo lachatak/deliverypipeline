@@ -7,18 +7,15 @@ import akka.util.Timeout
 import com.typesafe.config.ConfigFactory
 import spray.can.Http
 
+import scala.collection.JavaConverters._
 import scala.concurrent.duration._
 
 object Boot extends App {
 
-  val conf = System.getProperty("DELIVERY_CONF", "application.conf")
-  val conf2 = System.getenv("DELIVERY_CONF")
+  val config: String = System.getenv().asScala.getOrElse("DELIVERY_CONF", "application.conf")
 
-  println("envs: " + System.getenv())
-  println("props: " + System.getProperties())
-  println(conf)
-  println(conf2)
-  implicit val system = ActorSystem("deliverypipeline", ConfigFactory.load(System.getProperty("DELIVERY_CONF", "application.conf")))
+  println(config)
+  implicit val system = ActorSystem("deliverypipeline", ConfigFactory.load(config))
 
   val service = system.actorOf(Props[DeliverypipelineService], "deliverypipeline-service")
 
