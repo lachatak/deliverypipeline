@@ -15,5 +15,5 @@
       "ContainerDirectory": "/app/application.conf"
     }
   ],
-  "Logging": "/app/deliverypipeline.log"
+  "Logging": "/app/logs"
 }

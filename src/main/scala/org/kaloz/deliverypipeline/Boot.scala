@@ -13,6 +13,7 @@ object Boot extends App {
 
   val conf = System.getProperty("DELIVERY_CONF", "application.conf")
 
+  println(System.getenv())
   println(conf)
   implicit val system = ActorSystem("deliverypipeline", ConfigFactory.load(System.getProperty("DELIVERY_CONF", "application.conf") ))
 
