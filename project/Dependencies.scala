@@ -5,6 +5,7 @@ object Dependencies {
 lazy val deliverypipeline = Seq(
      akka.actor,
      akka.persistence,
+     akka.mongo,
      akka.testkit,
      spray.can,
      spray.routing,
@@ -19,6 +20,7 @@ object akka {
     // Core Akka
     val actor                 = "com.typesafe.akka"      %% "akka-actor"                    % version
     val persistence           = "com.typesafe.akka"      %% "akka-persistence-experimental" % version
+    val mongo                 = "com.github.ddevore"     %% "akka-persistence-mongo-casbah" % "0.7.4"
     val testkit               = "com.typesafe.akka"      %% "akka-testkit"                  % version % "test"
   }
 
