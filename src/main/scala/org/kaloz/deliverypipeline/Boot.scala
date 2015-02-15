@@ -1,5 +1,7 @@
 package org.kaloz.deliverypipeline
 
+import java.io.File
+
 import akka.actor.{ActorSystem, Props}
 import akka.io.IO
 import akka.pattern.ask
@@ -12,19 +14,9 @@ import scala.concurrent.duration._
 
 object Boot extends App {
 
-  val config: String = System.getenv().asScala.getOrElse("DELIVERY_CONF", "application.conf")
+  val config: String = System.getenv().asScala.getOrElse("DELIVERY_CONF", "")
 
-  val factory = ConfigFactory.load(config)
-
-  println(System.getenv())
-  println(System.getenv().get("DELIVERY_CONF"))
-  println(config)
-
-  if (config.startsWith("/app")) {
-    io.Source.fromFile(config).foreach {
-      print
-    }
-  }
+  val factory = ConfigFactory.parseFile(new File(config)).withFallback(ConfigFactory.load)
 
   implicit val system = ActorSystem("deliverypipeline", factory)
 
