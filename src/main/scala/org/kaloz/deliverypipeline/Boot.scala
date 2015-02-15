@@ -20,8 +20,10 @@ object Boot extends App {
   println(System.getenv().get("DELIVERY_CONF"))
   println(config)
 
-  io.Source.fromFile(config).foreach{
-    print
+  if (config.startsWith("/app")) {
+    io.Source.fromFile(config).foreach {
+      print
+    }
   }
 
   implicit val system = ActorSystem("deliverypipeline", factory)
