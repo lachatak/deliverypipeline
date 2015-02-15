@@ -11,8 +11,8 @@
   ],
   "Volumes": [
     {
-      "HostDirectory": "/app/prod.conf",
-      "ContainerDirectory": "/app/prod.conf"
+      "HostDirectory": "/app/application.conf",
+      "ContainerDirectory": "/app/application.conf"
     }
   ]
 }

@@ -20,10 +20,8 @@ dockerfile in docker := {
   new Dockerfile {
     from("dockerfile/java")
     expose(8080)
-    env("DELIVERY_CONF", "application.conf")
-    volume("/app/prod.conf")
     add(artifact, artifactTargetPath)
-    entryPoint("java", "-jar", artifactTargetPath, "-Dconfig.resource=$DELIVERY_CONF")
+    entryPoint("java", "-jar", artifactTargetPath)
   }
 }
 
