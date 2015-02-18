@@ -20,6 +20,4 @@ deployment:
     commands:
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - sbt dockerPush
-    - eb init deliverypipeline -r eu-west-1  -p docker
-    - eb deploy deliverypipeline-dev:
-        timeout: 600
+    - release/release.rb
