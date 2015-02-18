@@ -1,14 +1,13 @@
 import sbtdocker.ImageName
 import sbtdocker.Plugin.DockerKeys._
 import sbtdocker.mutable.Dockerfile
+import com.typesafe.sbt.SbtGit._
+
+versionWithGit
+
+git.baseVersion := "1.0.0"
 
 dockerSettings
-
-//val gitHeadCommitSha = settingKey[String]("current git commit SHA")
-//
-//gitHeadCommitSha in ThisBuild := Process("git rev-parse HEAD").lines.head
-//
-//version in ThisBuild := gitHeadCommitSha.value
 
 mainClass in assembly := Some("org.kaloz.deliverypipeline.Boot")
 

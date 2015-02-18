@@ -65,6 +65,11 @@ trait DeliverypipelineRoute extends HttpService {
                     {calls()}
                   </i>
                 </h1>
+                <h1>Current Revision
+                  <i>
+                    {BuildInfo.version}
+                  </i>
+                </h1>
               </body>
             </html>
           }

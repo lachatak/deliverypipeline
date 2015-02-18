@@ -4,7 +4,7 @@ import Keys._
 object BuildSettings {
 
   lazy val basicSettings = Seq(
-    version := "1.0.0-SNAPSHOT",
+//    version := "1.0.0-SNAPSHOT",
     name := "deliverypipeline",
     organization := "org.kaloz",
     description := "Pet project for deliverypipeline test with Werker + Docker + EC2 + Elastic Beanstalk",

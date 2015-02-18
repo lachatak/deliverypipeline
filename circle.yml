@@ -10,17 +10,17 @@ dependencies:
 
 test:
   override:
-#    - sbt test docker
+    - sbt test docker
     - echo test
   post:
-#    - docker run -d -p 8080:8080 lachatak/deliverypipeline:1.0.0-SNAPSHOT; sleep 10
-#    - curl --retry 10 --retry-delay 5 -v http://localhost:8080
+    - docker run -d -p 8080:8080 lachatak/deliverypipeline:latest; sleep 10
+    - curl --retry 10 --retry-delay 5 -v http://localhost:8080
     - echo post test
 
 deployment:
   elasticbeanstalk:
     branch: master
     commands:
-#    - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-#    - sbt dockerPush
+    - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - sbt dockerPush
     - release/release.rb
