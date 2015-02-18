@@ -11,8 +11,9 @@ dependencies:
 test:
   pre:
     - sbt exportVersionNumber
-    - chmod 774 ./setup.sh
-    - ./setup.sh
+    - chmod 774 setup.sh
+    - cat setup.sh
+    - setup.sh
   override:
     - sbt test docker
   post:
