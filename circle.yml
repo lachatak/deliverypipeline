@@ -1,4 +1,6 @@
 machine:
+  environment:
+      SBT_OPTS: "-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
   services:
     - docker
 
@@ -6,7 +8,6 @@ dependencies:
   pre:
     - sudo pip install awsebcli
     - sudo pip install awscli
-    - export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
 
 test:
   override:
