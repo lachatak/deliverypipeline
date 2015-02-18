@@ -19,7 +19,7 @@ puts "Deploying version to environment #{target_environment_name}"
 
 %x[eb init deliverypipeline -r eu-west-1  -p docker]
 %x[eb use #{target_environment_name}]
-# %x[eb deploy #{target_environment_name}]
+%x[eb deploy #{target_environment_name}]
 
 results = JSON.parse(%x[aws elasticbeanstalk describe-environments --application-name #{application_name} --environment-names #{target_environment_name} --region eu-west-1])['Environments'][0]
 
