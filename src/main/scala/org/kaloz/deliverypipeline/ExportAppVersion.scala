@@ -5,6 +5,6 @@ import java.io.{File, PrintWriter}
 object ExportAppVersion extends App {
 
   val setup = new PrintWriter(new File("setup.sh"))
-  setup.write(s"""#!/bin/bash\rexport APP_VERSION=${BuildInfo.version}""")
+  setup.write(s"""#!/bin/bash\nexport APP_VERSION=${BuildInfo.version}""")
   setup.close()
 }

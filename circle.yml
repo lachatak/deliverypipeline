@@ -13,7 +13,7 @@ test:
     - sbt exportVersionNumber
     - chmod 774 setup.sh
     - cat setup.sh
-    - setup.sh
+    - . ./setup.sh
   override:
     - sbt test docker
   post:

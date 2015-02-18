@@ -1,0 +1,2 @@
+#!/bin/bash
+export APP_VERSION=1.0.0-4365ffff56d94a551c6e282d76552c4371407aad
