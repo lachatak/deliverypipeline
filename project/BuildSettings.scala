@@ -3,6 +3,8 @@ import Keys._
 
 object BuildSettings {
 
+  import Aliases._
+
   lazy val basicSettings = Seq(
 //    version := "1.0.0-SNAPSHOT",
     name := "deliverypipeline",
@@ -18,5 +20,5 @@ object BuildSettings {
       "-language:postfixOps",
       "-language:implicitConversions"
     )
-  ) 
+  ) ++ exportVersionNumber
 }

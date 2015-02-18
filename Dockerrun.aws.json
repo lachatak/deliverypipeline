@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "lachatak/deliverypipeline:latest",
+    "Name": "lachatak/deliverypipeline:APP_VERSION",
     "Update": "true"
   },
   "Ports": [

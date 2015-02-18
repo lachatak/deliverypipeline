@@ -9,13 +9,15 @@ dependencies:
     - export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
 
 test:
+  pre:
+    - sbt exportVersionNumber
+    - chmod 774 ./setup.sh
+    - ./setup.sh
   override:
     - sbt test docker
-    - echo test
   post:
-    - docker run -d -p 8080:8080 lachatak/deliverypipeline:latest; sleep 10
+    - docker run -d -p 8080:8080 lachatak/deliverypipeline:$APP_VERSION; sleep 10
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
-    - echo post test
 
 deployment:
   elasticbeanstalk:
@@ -23,4 +25,5 @@ deployment:
     commands:
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - sbt dockerPush
+    - sed  -i '' "s/APP_VERSION/$APP_VERSION/" Dockerrun.aws.json
     - release/release.rb
