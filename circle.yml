@@ -16,7 +16,7 @@ test:
   override:
     - sbt test docker
   post:
-    - set | grep APP
+    - echo $APP_VERSION
     - docker run -d -p 8080:8080 lachatak/deliverypipeline:$APP_VERSION; sleep 10
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
 
