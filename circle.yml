@@ -6,14 +6,13 @@ machine:
 
 dependencies:
   pre:
-    - sudo pip install awsebcli
     - sudo pip install awscli
 
 test:
   override:
     - sbt test docker
   post:
-    - sbt exportVersionNumber --warn;chmod 774 setup.sh;. ./setup.sh;docker run -d -p 8080:8080 lachatak/deliverypipeline:$APP_VERSION; sleep 10
+    - release/runImage.sh
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
 
 deployment:
@@ -22,5 +21,4 @@ deployment:
     commands:
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - sbt dockerPush
-    - sbt exportVersionNumber --warn;chmod 774 setup.sh;. ./setup.sh;sed  -i "s/APP_VERSION/$APP_VERSION/" Dockerrun.aws.json
-    - release/release.rb
+    - release/deploy.sh
