@@ -4,19 +4,18 @@ require 'json'
 require 'timeout'
 
 application_name = "deliverypipeline"
-environment1 = "deliverypipeline-dev"
-environment2 = "deliverypipeline-dev2"
+environment1 = "deliverypipeline-node1"
+environment2 = "deliverypipeline-node2"
+preprod_url = "deliverypipeline-preprod.elasticbeanstalk.com"
 s3bucket = "deliverypipeline"
 region = "eu-west-1"
 app_version = ENV['APP_VERSION']
-
-backup_url = "deliverypipeline-dev2.elasticbeanstalk.com"
 
 puts "Starting zero downtime deployment for application: #{application_name}"
 
 results = JSON.parse(%x[aws elasticbeanstalk describe-environments --application-name #{application_name} --region #{region}])
 
-target_environment_name = results['Environments'].select { |item| item['CNAME']==backup_url }.collect {|item| item['EnvironmentName'] }[0]
+target_environment_name = results['Environments'].select { |item| item['CNAME']==preprod_url }.collect {|item| item['EnvironmentName'] }[0]
 
 puts "Deploying version to environment #{target_environment_name}"
 
