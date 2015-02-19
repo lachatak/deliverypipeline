@@ -4,8 +4,8 @@ require 'json'
 require 'timeout'
 
 application_name = "deliverypipeline"
-environment1 = "deliverypipeline-node1"
-environment2 = "deliverypipeline-node2"
+environment1 = "deliverypipeline-node-1"
+environment2 = "deliverypipeline-node-2"
 preprod_url = "deliverypipeline-preprod.elasticbeanstalk.com"
 s3bucket = "deliverypipeline"
 region = "eu-west-1"
