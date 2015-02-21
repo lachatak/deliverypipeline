@@ -28,6 +28,12 @@ The application has Akka mongo persistence. Every time the application URL is ca
 
 The application requires a ***DELIVERY_CONF*** env property which should point to a configuration file. If the env property is missing it is going to use the default LevelDB local persistence.
 
+### sbt plugins ###
+To achieve the well desired goal I had to add some sbt plugins:
+- [sbt-docker](https://github.com/marcuslonnberg/sbt-docker) to manage Docker image generation
+- [sbt-buildinfo](https://github.com/sbt/sbt-buildinfo) to generate a class that contains static build time information like git version number, generation time. It is used by the server when the user hits a endpoint
+- [sbt-git](https://github.com/sbt/sbt-git) to modify the application version number to contain git version number
+
 ### AWS Elastic Beanstalk ###
 - I created one elastic beanstalk application on AWS with the name ***deliverypipeline***
 - It has two environments ***deliverypipeline-node-1*** and ***deliverypipeline-node-2***. The first has ***deliverypipeline-prod.elasticbeanstalk.com*** public URL meanwhile the other has ***deliverypipeline-preprod.elasticbeanstalk.com***. Both of the environments will host the Dockerized version of the aforementioned Spray REST application. They have a previously configured ***DELIVERY_CONF*** which point to a local file */app/application.conf*. This file is used as a **volume** for the Docker images. That is the way how the live application has proper configuration relevant to the environment. 
