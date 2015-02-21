@@ -1,7 +1,7 @@
 # Deliverypipeline [![Circle CI](https://circleci.com/gh/lachatak/deliverypipeline/tree/master.svg?style=svg)](https://circleci.com/gh/lachatak/deliverypipeline/tree/master)
 
 ## Continious Delivery on cloud ##
-This is an experimental project to test how we could achieve continuous delivery pipeline with open source cloud based tools. 
+This is an experimental project to test how we could achieve continuous delivery pipeline with open source cloud based tools to enable zero downtime release. 
 
 ### Tool set ###
 - [AWS Elastic Beanstalk](http://aws.amazon.com/elasticbeanstalk/) to host our application
@@ -14,7 +14,7 @@ This is an experimental project to test how we could achieve continuous delivery
 
 The running application is available [here](http://deliverypipeline-prod.elasticbeanstalk.com/)
 
-## The main concept ##
+## The ingredients ##
 
 ### The application ###
 I have a simple REST based application. It provides some basic information about its running environment:
@@ -24,6 +24,11 @@ I have a simple REST based application. It provides some basic information about
 - Host name
 The application has Akka mongo persistence. Every time the application URL is called the internal state will be modified and persisted to a mongo store which is hosted by Mongolab. If I deploy a new version of the application it is going to use the same mongo store and fetch the previously persisted state.
 
+The application requires a ***DELIVERY_CONF*** env property which should point to a configuration file. If the env property is missing it is going to use the default LevelDB local persistence.
+
+### AWS Elastic Beanstalk ###
+I created one elastic beanstalk application on AWS with the name ***deliverypipeline***. It has two environments ***deliverypipeline-node-1*** and ***deliverypipeline-node-2***. The first has ***deliverypipeline-prod.elasticbeanstalk.com*** public URL meanwhile the other has ***deliverypipeline-preprod.elasticbeanstalk.com***. Both of the environments will host the Dockerized version of the aforementioned Spray REST application. They have a previously configured ***DELIVERY_CONF*** which point to a local file */app/application.conf*. This file is used as a **volume** for the Docker images. Thet is the way how the live application has proper configuration relevant to the environment. 
+
 ### Continous Integration ###
 When ever I push a modification to the github repository my cloud based CircleCI is going to pick up the modification and build the new version of the application.
 The build has the following steps:
@@ -31,7 +36,7 @@ The build has the following steps:
 - Deploy required dependencies like awscli
 - Run application unit tests
 - Build docker image from the application and run it on CircleCI
-- Run integration tests agains the previously constructed docker image to very that the image is functional. Now it is just a simple curl request but it could be a more complex integration test or even load test.
+- Run integration tests agains the previously constructed docker image to very that the image is functional. Now it is just a simple curl request but it could be a more complex integration test or even load test. This environment doesn't have ***DELIVERY_CONF*** env property so the application is using the configuration provided inside the docker image. It is by default uses local LevelDB for storing event stanpshots.
 - If all the test pass the image is uploaded to Dockerhub
 - Update Dockerrun.aws.json to point to the newly created application version in Dockerhub
 - Create a new application version in AWS using the new Dockerrun.aws.json
@@ -39,4 +44,22 @@ The build has the following steps:
 - Deploy the new application version to the preproduction environment
 - Wait as long as the environment is ready again after the deployment
 - Swap the preproduction and production URL. The preproduction environment will become the new production and vica versa. For the next deployment the new preproduction system will be used 
+
+All the steps described here can be followed in the [CircleCi configuration file](circle.yml) added to the projects root directory. 
+
+## The process ##
+- Push modifications to the github
+- CircleCI descovers that there is a new version to deploy
+- CircleCI goes through the build process
+- The result is a new docker image at Dockerhub
+- CircleCI creates a new application version in AWS and deploys this version to the preprod environment which has ***deliverypipeline-preprod.elasticbeanstalk.com*** URL. AWS will pull the new version from the Dockerhub
+- CircleCI validates the deployment and swaps the preproduction and production URL if it was successful to publish the newly deployed application
+- The user goes to the production URL and hit the page. The application updates its internal state and persists the state to the Mongolab mongo database. This configuration is coming from the */app/application.conf* life configuration
+- After the new deployment the freshly started application picks up the persisted state and continue the operation
+
+Obviously in a real application it could be even more complex but it is a good basic solution for further development.
+
+## Zero downtime release delivered!!! ##
+
+ 
 
