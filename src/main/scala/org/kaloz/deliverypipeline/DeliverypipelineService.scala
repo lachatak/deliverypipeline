@@ -1,5 +1,6 @@
 package org.kaloz.deliverypipeline
 
+import java.net.InetAddress
 import java.util.Date
 
 import akka.actor.ActorLogging
@@ -18,6 +19,8 @@ class DeliverypipelineService extends PersistentActor with ActorLogging with Del
   override val persistenceId: String = "deliverypipeline"
 
   var state = ServiceState()
+
+  val hostname: String = InetAddress.getLocalHost.getHostName
 
   def deployHistory = state.deployHistory
 
@@ -38,6 +41,7 @@ class DeliverypipelineService extends PersistentActor with ActorLogging with Del
 
   override def receiveCommand: Receive = runRoute(myRoute)
 
+
 }
 
 trait DeliverypipelineRoute extends HttpService {
@@ -45,6 +49,8 @@ trait DeliverypipelineRoute extends HttpService {
   def deployHistory: List[Date]
 
   def calls(): Int
+
+  def hostname: String
 
   val myRoute =
     path("") {
@@ -68,6 +74,11 @@ trait DeliverypipelineRoute extends HttpService {
                 <h1>Current Revision
                   <i>
                     {BuildInfo.version}
+                  </i>
+                </h1>
+                <h1>Host name
+                  <i>
+                    {hostname}
                   </i>
                 </h1>
               </body>
