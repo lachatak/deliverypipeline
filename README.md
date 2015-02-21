@@ -14,9 +14,9 @@ This is an experimental project to test how we could achieve continuous delivery
 
 The running application is available [here](http://deliverypipeline-prod.elasticbeanstalk.com/)
 
-### The main concept ###
+## The main concept ##
 
-## The application ##
+### The application ###
 I have a simple REST based application. It provides some basic information about its running environment:
 - Deploy history
 - Aggregated number of calls since the first version was deployed
@@ -24,7 +24,7 @@ I have a simple REST based application. It provides some basic information about
 - Host name
 The application has Akka mongo persistence. Every time the application URL is called the internal state will be modified and persisted to a mongo store which is hosted by Mongolab. If I deploy a new version of the application it is going to use the same mongo store and fetch the previously persisted state.
 
-## Continous Integration ##
+### Continous Integration ###
 When ever I push a modification to the github repository my cloud based CircleCI is going to pick up the modification and build the new version of the application.
 The build has the following steps:
 - Prepare the build environment
