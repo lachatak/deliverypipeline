@@ -27,7 +27,8 @@ The application has Akka mongo persistence. Every time the application URL is ca
 The application requires a ***DELIVERY_CONF*** env property which should point to a configuration file. If the env property is missing it is going to use the default LevelDB local persistence.
 
 ### AWS Elastic Beanstalk ###
-I created one elastic beanstalk application on AWS with the name ***deliverypipeline***. It has two environments ***deliverypipeline-node-1*** and ***deliverypipeline-node-2***. The first has ***deliverypipeline-prod.elasticbeanstalk.com*** public URL meanwhile the other has ***deliverypipeline-preprod.elasticbeanstalk.com***. Both of the environments will host the Dockerized version of the aforementioned Spray REST application. They have a previously configured ***DELIVERY_CONF*** which point to a local file */app/application.conf*. This file is used as a **volume** for the Docker images. Thet is the way how the live application has proper configuration relevant to the environment. 
+- I created one elastic beanstalk application on AWS with the name ***deliverypipeline***
+- It has two environments ***deliverypipeline-node-1*** and ***deliverypipeline-node-2***. The first has ***deliverypipeline-prod.elasticbeanstalk.com*** public URL meanwhile the other has ***deliverypipeline-preprod.elasticbeanstalk.com***. Both of the environments will host the Dockerized version of the aforementioned Spray REST application. They have a previously configured ***DELIVERY_CONF*** which point to a local file */app/application.conf*. This file is used as a **volume** for the Docker images. That is the way how the live application has proper configuration relevant to the environment. 
 
 ### Continous Integration ###
 When ever I push a modification to the github repository my cloud based CircleCI is going to pick up the modification and build the new version of the application.
