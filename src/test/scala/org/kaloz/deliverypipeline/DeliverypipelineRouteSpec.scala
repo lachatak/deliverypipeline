@@ -13,6 +13,8 @@ class DeliverypipelineRouteSpec extends Specification with Specs2RouteTest with 
 
   override def calls(): Int = 3
 
+  override val hostname = "localhost"
+
   "DeliverypipelineRoute" should {
 
     "return a the deploy history for GET requests to the root path" in {
