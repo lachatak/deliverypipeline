@@ -1,7 +1,9 @@
 # Deliverypipeline [![Circle CI](https://circleci.com/gh/lachatak/deliverypipeline/tree/master.svg?style=svg)](https://circleci.com/gh/lachatak/deliverypipeline/tree/master)
 
 ## Continious Delivery on cloud ##
-This is an experimental project to test how we could achieve continuous delivery pipeline with open source cloud based tools to enable zero downtime release. 
+This is an experimental project to test how we could achieve continuous delivery pipeline with open source cloud based tools to enable zero downtime release.
+The main motivation was this documentation from AWS:
+http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.CNAMESwap.html
 
 ### Tool set ###
 - [AWS Elastic Beanstalk](http://aws.amazon.com/elasticbeanstalk/) to host our application
@@ -54,7 +56,7 @@ All the steps described here can be followed in the [CircleCi configuration file
 - CircleCI goes through the build process
 - The result is a new docker image at Dockerhub
 - CircleCI creates a new application version in AWS and deploys this version to the preprod environment which has ***deliverypipeline-preprod.elasticbeanstalk.com*** URL. AWS will pull the new version from the Dockerhub
-- CircleCI validates the deployment and swaps the preproduction and production URL if it was successful to publish the newly deployed application
+- CircleCI validates the deployment and swaps the preproduction and production URL if it was successful to publish the newly deployed application. However, DNS propagation requires some tome to happen. DNS servers do not necessarily clear old records from their cache based on the time to live (TTL). Based on this fct you could possible wait until the swap has a real effect.
 - The user goes to the production URL and hit the page. The application updates its internal state and persists the state to the Mongolab mongo database. This configuration is coming from the */app/application.conf* life configuration
 - After the new deployment the freshly started application picks up the persisted state and continue the operation
 
