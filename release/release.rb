@@ -26,7 +26,7 @@ puts "Deploying version to environment #{target_environment_name}"
 ## Wait for the new environment to go ready
 ## This wait can be customized for a given application to determine when it is really ready
 
-max_wait_time_sec = 5 * 60;  ## 5 minutes
+max_wait_time_sec = 10 * 60;  ## 10 minutes
 begin
   Timeout::timeout(max_wait_time_sec) do
     done = false
