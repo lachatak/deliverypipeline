@@ -2,6 +2,8 @@ machine:
   environment:
       SBT_OPTS: "-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
       COVERALLS_REPO_TOKEN: $COVERALLS_REPO_TOKEN
+      COVERALLS_SERVICE_JOB_ID: "${CIRCLE_BUILD_NUM}"
+      COVERALLS_SERVICE_NAME: CircleCI
   services:
     - docker
 
@@ -12,7 +14,7 @@ dependencies:
 
 test:
   override:
-    - sbt test coverage
+    - sbt coverage test
     - sbt coverageReport
     - sbt docker
   post:
