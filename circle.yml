@@ -11,7 +11,8 @@ dependencies:
 
 test:
   override:
-    - sbt test coverage docker
+    - sbt test coverage
+    - sbt docker
   post:
     - release/runImage.sh
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
