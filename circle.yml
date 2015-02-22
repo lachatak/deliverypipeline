@@ -15,7 +15,7 @@ dependencies:
 test:
   override:
     - sbt coverage test
-    - sbt coverageReport
+    - sbt coveralls
     - sbt docker
   post:
     - release/runImage.sh

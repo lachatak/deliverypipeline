@@ -1,5 +1,7 @@
 resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 
+resolvers += Classpaths.sbtPluginReleases
+
 addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.2")
 
 addSbtPlugin("se.marcuslonnberg" % "sbt-docker" % "0.5.2")
@@ -11,3 +13,5 @@ resolvers += "jgit-repo" at "http://download.eclipse.org/jgit/maven"
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.6.4")
 
 addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.0.4")
+
+addSbtPlugin("org.scoverage" % "sbt-coveralls" % "1.0.0.BETA1")
