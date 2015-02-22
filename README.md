@@ -24,6 +24,7 @@ I have a simple REST based application. It provides some basic information about
 - Aggregated number of calls since the first version was deployed
 - Currently deployed version
 - Host name
+
 The application has Akka mongo persistence. Every time the application URL is called the internal state will be modified and persisted to a mongo store which is hosted by Mongolab. If I deploy a new version of the application it is going to use the same mongo store and fetch the previously persisted state.
 
 The application requires a ***DELIVERY_CONF*** env property which should point to a configuration file. If the env property is missing it is going to use the default LevelDB local persistence.
