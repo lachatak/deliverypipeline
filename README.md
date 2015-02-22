@@ -1,4 +1,4 @@
-# Deliverypipeline [![Circle CI](https://circleci.com/gh/lachatak/deliverypipeline/tree/master.svg?style=svg)](https://circleci.com/gh/lachatak/deliverypipeline/tree/master)[![Coverage Status](https://coveralls.io/repos/lachatak/deliverypipeline/badge.svg)](https://coveralls.io/r/lachatak/deliverypipeline)
+# Deliverypipeline [![Circle CI](https://circleci.com/gh/lachatak/deliverypipeline/tree/master.svg?style=svg)](https://circleci.com/gh/lachatak/deliverypipeline/tree/master) [![Coverage Status](https://coveralls.io/repos/lachatak/deliverypipeline/badge.svg)](https://coveralls.io/r/lachatak/deliverypipeline)
 
 ## Continuous Delivery on cloud ##
 This is an experimental project to test how we could achieve continuous delivery pipeline with open source cloud based tools to enable zero downtime release.
