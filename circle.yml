@@ -1,6 +1,7 @@
 machine:
   environment:
       SBT_OPTS: "-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
+      COVERALLS_REPO_TOKEN: $COVERALLS_REPO_TOKEN
   services:
     - docker
 
