@@ -1,6 +1,6 @@
 # Deliverypipeline [![Circle CI](https://circleci.com/gh/lachatak/deliverypipeline/tree/master.svg?style=svg)](https://circleci.com/gh/lachatak/deliverypipeline/tree/master)
 
-## Continious Delivery on cloud ##
+## Continuous Delivery on cloud ##
 This is an experimental project to test how we could achieve continuous delivery pipeline with open source cloud based tools to enable zero downtime release.
 The main motivation was this documentation from AWS:
 http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.CNAMESwap.html
