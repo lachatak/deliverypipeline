@@ -59,13 +59,13 @@ All the steps described here can be followed in the [CircleCi configuration file
 
 ## The process ##
 - Push modifications to the github
-- CircleCI descovers that there is a new version to deploy
-- CircleCI goes through the build process
-- The result is a new docker image at Dockerhub
+- CircleCI discovers that there is a new version to deploy
+- CircleCI goes through the build process and generates a new docker image
+- The new image will be uploaded to Dockerhub
 - CircleCI creates a new application version in AWS and deploys this version to the preprod environment which has ***deliverypipeline-preprod.elasticbeanstalk.com*** URL. AWS will pull the new version from the Dockerhub
-- CircleCI validates the deployment and swaps the preproduction and production URL if it was successful to publish the newly deployed application. However, DNS propagation requires some tome to happen. DNS servers do not necessarily clear old records from their cache based on the time to live (TTL). Based on this fct you could possible wait until the swap has a real effect.
+- CircleCI verifies the deployment and swaps the preproduction and production URL if the verification was successful. However, DNS propagation requires some time to happen. DNS servers do not necessarily clear old records from their cache based on the time to live (TTL). Based on this fact you could possible wait until the swap has a real effect.
 - The user goes to the production URL and hit the page. The application updates its internal state and persists the state to the Mongolab mongo database. This configuration is coming from the */app/application.conf* life configuration
-- After the new deployment the freshly started application picks up the persisted state and continue the operation
+- After the new deployment the freshly started application picks up the persisted state and continues the operation
 
 Obviously in a real application it could be even more complex but it is a good basic solution for further development.
 
