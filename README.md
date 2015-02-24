@@ -37,7 +37,7 @@ To achieve the well desired goal I had to add some sbt plugins:
 
 ### AWS Elastic Beanstalk ###
 - I created one elastic beanstalk application on AWS with the name ***deliverypipeline***
-- It has two environments ***deliverypipeline-node-1*** and ***deliverypipeline-node-2***. The first has ***deliverypipeline-prod.elasticbeanstalk.com*** public URL meanwhile the other has ***deliverypipeline-preprod.elasticbeanstalk.com***. Both of the environments will host the Dockerized version of the aforementioned Spray REST application. They have a previously configured ***DELIVERY_CONF*** which point to a local file */app/application.conf*. This file is used as a **volume** for the Docker images. That is the way how the live application has proper configuration relevant to the environment. 
+- It has two environments ***deliverypipeline-node-1*** and ***deliverypipeline-node-2***. The first has ***deliverypipeline-prod.elasticbeanstalk.com*** public URL meanwhile the other has ***deliverypipeline-preprod.elasticbeanstalk.com***. Both of the environments will host the Dockerized version of the aforementioned Spray REST application. They have a previously configured ***DELIVERY_CONF*** which point to a local file */app/application.conf*. This file is used as a **volume** for the generated and used Docker image. That is the way how the live application has proper configuration relevant to the environment. 
 
 ### Continous Integration ###
 When ever I push a modification to the github repository my cloud based CircleCI is going to pick up the modification and build the new version of the application.
@@ -45,14 +45,14 @@ The build has the following steps:
 - Prepare the build environment
 - Deploy required dependencies like awscli
 - Run application unit tests
-- Build docker image from the application and run it on CircleCI
-- Run integration tests agains the previously constructed docker image to very that the image is functional. Now it is just a simple curl request but it could be a more complex integration test or even load test. This environment doesn't have ***DELIVERY_CONF*** env property so the application is using the configuration provided inside the docker image. It is by default uses local LevelDB for storing event stanpshots.
-- If all the test pass the image is uploaded to Dockerhub
-- Update Dockerrun.aws.json to point to the newly created application version in Dockerhub
-- Create a new application version in AWS using the new Dockerrun.aws.json
+- Build docker image from the application and run it on CircleCI build box
+- Run integration tests agains the previously constructed and running docker image to very that the image is functional, all the ports wihch is needed are exposed. The test currently is just a simple curl request but it could be a more complex integration test or even load test for complex builds. This environment doesn't have ***DELIVERY_CONF*** env property so the application is using the configuration provided inside the docker image which is by default points to a local LevelDB for storing event stanpshots.
+- If all the test pass the image will be uploaded to Dockerhub
+- Update Dockerrun.aws.json to point to the newly created docker image version in Dockerhub
+- Create a new application version in AWS using the new, modified Dockerrun.aws.json
 - Pick the preproduction environment for deployment based on the public URL
 - Deploy the new application version to the preproduction environment
-- Wait as long as the environment is ready again after the deployment
+- After the deployment wait as long as the environment is ready again 
 - Swap the preproduction and production URL. The preproduction environment will become the new production and vica versa. For the next deployment the new preproduction system will be used 
 
 All the steps described here can be followed in the [CircleCi configuration file](circle.yml) added to the projects root directory. 
@@ -62,9 +62,9 @@ All the steps described here can be followed in the [CircleCi configuration file
 - CircleCI discovers that there is a new version to deploy
 - CircleCI goes through the build process and generates a new docker image
 - The new image will be uploaded to Dockerhub
-- CircleCI creates a new application version in AWS and deploys this version to the preprod environment which has ***deliverypipeline-preprod.elasticbeanstalk.com*** URL. AWS will pull the new version from the Dockerhub
+- CircleCI creates a new application version in AWS and deploys this version to the preprod environment which has ***deliverypipeline-preprod.elasticbeanstalk.com*** URL. AWS will pull the new version from the Dockerhub and install it the the preproduction environment
 - CircleCI verifies the deployment and swaps the preproduction and production URL if the verification was successful. However, DNS propagation requires some time to happen. DNS servers do not necessarily clear old records from their cache based on the time to live (TTL). Based on this fact you could possible wait until the swap has a real effect.
-- The user goes to the production URL and hit the page. The application updates its internal state and persists the state to the Mongolab mongo database. This configuration is coming from the */app/application.conf* life configuration
+- The user goes to the production URL and hits the page. The application updates its internal state and persists the state to the Mongolab mongo database. This configuration is coming from the */app/application.conf* live configuration which is mapped into the Docker image via the Dockerrun.aws.json
 - After the new deployment the freshly started application picks up the persisted state and continues the operation
 
 Obviously in a real application it could be even more complex but it is a good basic solution for further development.
