@@ -57,6 +57,8 @@ The build has the following steps:
 
 All the steps described here can be followed in the [CircleCi configuration file](circle.yml) added to the projects root directory. 
 
+There is one extra thing worth mentioning. As you can see in the CircleCI configuration there are couple of referenced environmental variables like AWS keys, Dockerhub credentials. All those variables are coming from the CircleCI project configuration to avoid exposing sensitive data to the wide audience.
+
 ## The process ##
 - Push modifications to the github
 - CircleCI discovers that there is a new version to deploy
