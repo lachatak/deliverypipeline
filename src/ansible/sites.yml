@@ -1,0 +1,9 @@
+---
+# This playbook configures AWS instances for deliverypipeline
+
+- hosts: tag_app_deliverypipeline
+  user: ec2-user
+
+  roles:
+    - appconfig
+    - applog

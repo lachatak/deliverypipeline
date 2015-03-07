@@ -1,0 +1,16 @@
+---
+- name: Update nodes
+  yum: name=* state=latest
+  sudo: True
+
+- name: Assures /app doesn't exist
+  file: path=/app state=absent
+  sudo: True
+
+- name: Assures /app dir exists
+  file: path=/app state=directory
+  sudo: True
+
+- name: Copy application.conf
+  template: src=application.conf dest=/app/application.conf
+  sudo: True
