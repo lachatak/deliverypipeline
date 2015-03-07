@@ -8,14 +8,7 @@
         </encoder>
     </appender>
 
-    <appender name="SYSLOG" class="ch.qos.logback.classic.net.SyslogAppender">
-        <syslogHost>localhost</syslogHost>
-        <facility>Local3</facility>
-        <suffixPattern>[%thread] %logger %msg</suffixPattern>
-    </appender>
-
     <root level="DEBUG">
-        <appender-ref ref="SYSLOG" />
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>

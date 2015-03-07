@@ -13,7 +13,10 @@
     {
       "HostDirectory": "/app/application.conf",
       "ContainerDirectory": "/app/application.conf"
+    },
+    {
+      "HostDirectory": "/app/logback.xml",
+      "ContainerDirectory": "/app/logback.xml"
     }
-  ],
-  "Logging": "/app/logs"
+  ]
 }

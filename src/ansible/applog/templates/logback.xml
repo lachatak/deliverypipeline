@@ -1,0 +1,20 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="LOGGLY" class="ch.qos.logback.ext.loggly.LogglyAppender">
+        <endpointUrl>https://logs-01.loggly.com/inputs/{{loggly_token}}/tag/deliverypipeline</endpointUrl>
+        <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="LOGGLY" />
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

@@ -1,15 +1,4 @@
 ---
-- name: Download Loggly setup
-  get_url: url=https://www.loggly.com/install/configure-linux.sh dest=/home/ec2-user
-
-- name: Start Loggly configuration
-  shell: bash configure-linux.sh -a {{ loggly_account}} -t {{loggly_token}} -u {{ loggly_user_name }} -p {{ loggly_password }}
-  sudo: True
-
-- name: Copy rsyslog.conf
-  file: src=rsyslog.conf path=/etc/rsyslog.conf
-  sudo: True
-
-- name: Restart rsyslog
-  service: name=rsyslog state=restarted
+- name: Copy logback.xml
+  template: src=logback.xml dest=/app/logback.xml
   sudo: True
