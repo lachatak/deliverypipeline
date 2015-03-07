@@ -7,8 +7,10 @@ lazy val deliverypipeline = Seq(
      akka.persistence,
      akka.mongo,
      akka.testkit,
+     akka.slf4j,
      spray.can,
      spray.routing,
+     logback,
      spray.testkit
 //     scalaz.core,
 //     scalatest,
@@ -21,6 +23,7 @@ object akka {
     val actor                 = "com.typesafe.akka"      %% "akka-actor"                    % version
     val persistence           = "com.typesafe.akka"      %% "akka-persistence-experimental" % version
     val mongo                 = "com.github.ddevore"     %% "akka-persistence-mongo-casbah" % "0.7.4"
+    val slf4j                 = "com.typesafe.akka"      %% "akka-slf4j"                    % version
     val testkit               = "com.typesafe.akka"      %% "akka-testkit"                  % version % "test"
   }
 
@@ -38,5 +41,7 @@ object akka {
   // Testing
 //  val scalatest      = "org.scalatest"      %% "scalatest"       % "2.2.1"      % "test"
 //  val scalacheck     = "org.scalacheck"     %% "scalacheck"      % "1.11.6"     % "test"
-  val spec2          = "org.specs2"         %%  "specs2-core"    % "2.3.11"     % "test"
+  val spec2          = "org.specs2"         %%  "specs2-core"     % "2.3.11"     % "test"
+
+  val logback        = "ch.qos.logback"     %   "logback-classic" % "1.0.9"
 }
