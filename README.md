@@ -11,6 +11,8 @@ http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.CNAMESwap.h
 - [Dockerhub](https://hub.docker.com/) to store Docker images produced by the CI
 - [Mongolab](https://mongolab.com/) to have a cloud based mongo store for the test application to store event source snapshots
 - [CircleCI](https://circleci.com/) to build and deploy the application
+- [Ansible](http://www.ansible.com/home) to manage AWS instances
+- [Loggly](https://www.loggly.com/simplify-log-management-with-loggly/) to be able to easily analize app logs
 - [Github](https://github.com/lachatak) to store the application source
 - The application itself is a [Spray](http://spray.io/) and [Akka](http://akka.io/) based simple REST application
 
