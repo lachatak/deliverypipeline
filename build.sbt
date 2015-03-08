@@ -14,7 +14,7 @@ mainClass in assembly := Some("org.kaloz.deliverypipeline.Boot")
 docker <<= (docker dependsOn assembly)
 
 dockerfile in docker := {
-  val artifact = (assemblyOutputPath in assembly).value
+  val artifact = (outputPath in assembly).value
   val artifactTargetPath = s"/app/${artifact.name}"
   new Dockerfile {
     from("dockerfile/java")
