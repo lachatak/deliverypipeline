@@ -11,7 +11,7 @@ import spray.routing._
 case class ServiceState(calls: Int = 0, deployHistory: List[Date] = List(new Date)) {
   def call = copy(calls = calls + 1)
 
-  def deployment = copy(deployHistory = new Date :: deployHistory)
+  def deployment = copy(deployHistory = new Date :: deployHistory.take(9))
 }
 
 class DeliverypipelineService extends PersistentActor with ActorLogging with DeliverypipelineRoute {
@@ -24,19 +24,20 @@ class DeliverypipelineService extends PersistentActor with ActorLogging with Del
 
   def deployHistory = state.deployHistory
 
-  def calls() = {
+  def calls(): Int = {
     state = state.call
-    log.info(s"save state: $state")
     saveSnapshot(state)
-    state.calls
+    val calls = state.calls
+    log.info(s"Called: $calls")
+    calls
   }
 
   def actorRefFactory = context
 
   override def receiveRecover: Receive = {
     case SnapshotOffer(_, offeredSnapshot: ServiceState) =>
-      log.info(s"offer state: $offeredSnapshot")
       state = offeredSnapshot.deployment
+      log.info(s"Restarted: $offeredSnapshot")
   }
 
   override def receiveCommand: Receive = runRoute(myRoute)
