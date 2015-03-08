@@ -14,7 +14,7 @@ import scala.concurrent.duration._
 
 object Boot extends App {
 
-  val config: String = System.getenv().asScala.getOrElse("DELIVERY_CONF", "")
+  val config: String = System.getProperty("akka.config", "")
 
   val factory = ConfigFactory.parseFile(new File(config)).withFallback(ConfigFactory.load)
 
