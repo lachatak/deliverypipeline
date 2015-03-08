@@ -1,4 +1,4 @@
 ---
 - name: Copy logback.xml
   template: src=logback.xml dest=/app/logback.xml
-  sudo: True
+  sudo: yes

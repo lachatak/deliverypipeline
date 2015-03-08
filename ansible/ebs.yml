@@ -1,0 +1,11 @@
+---
+# This playbook creates AWS instances for deliverypipeline
+
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  vars:
+    ebs_app_name: deliverypipeline
+    ebs_region: eu-west-1
+  roles:
+    - elasticbeanstalk

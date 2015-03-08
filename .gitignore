@@ -5,6 +5,4 @@ project/project
 .history
 
 # Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+ansible/.elasticbeanstalk/
