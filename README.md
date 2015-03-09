@@ -78,7 +78,7 @@ The build has the following steps:
 - Run application unit tests and check code coverage
 - Upload code coverage results to Coveralls
 - Build docker image from the application and run it on CircleCI build box for testing purpose
-- Run integration tests agains the previously constructed docker image to very that the image is functional and all the ports are properly exposed. The test currently is just a simple curl request but it could be a more complex integration test or even load test for complex builds. This environment doesn't have ***/app/backlog.xml*** and **/app/application.conf*** so the application will use the default configuration provided inside the fat jar which by default points to a local LevelDB for storing event stanpshots.
+- Run integration tests agains the previously constructed docker image to very that the image is functional and all the ports are properly exposed. The test currently is just a simple curl request but it could be a more complex integration test or even load test for complex builds. This environment doesn't have ***/app/backlog.xml*** and ***/app/application.conf*** so the application will use the default configuration provided inside the fat jar which by default points to a local LevelDB for storing event stanpshots.
 - If all the test pass the image will be uploaded to Dockerhub
 - Update Dockerrun.aws.json to point to the newly created docker image version in Dockerhub
 - Create a new application version in AWS using the new, modified Dockerrun.aws.json
