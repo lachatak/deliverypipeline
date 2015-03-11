@@ -22,7 +22,7 @@ The running application is available [here](http://deliverypipeline-prod.elastic
 
 ## The process ##
 1. Start provisioning AWS EBS application and environments with ***Ansible***
-2. AWS creates 2 instances for the environments
+2. AWS with the help of Ansible creates 2 preconfigured instances for the environments
 3. Push modifications to the github
 4. Notifications goes from the github to the ***HipChat*** about pushed code
 5. ***CircleCI*** discovers that there is a modification in the codebase. It goes through the build process and deploy new version to AWS
