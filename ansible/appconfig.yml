@@ -3,6 +3,6 @@
 
 - hosts: tag_app_deliverypipeline
   user: ec2-user
+  sudo: yes
   roles:
     - appconfig
-    - applog

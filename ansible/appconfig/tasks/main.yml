@@ -1,12 +1,12 @@
 ---
 - name: Update nodes
   yum: name=* state=latest
-  sudo: yes
 
 - name: Assures /app dir exists
   file: path=/app state=directory
-  sudo: yes
 
 - name: Copy application.conf
   template: src=application.conf dest=/app/application.conf
-  sudo: yes
+
+- name: Copy logback.xml
+  template: src=logback.xml dest=/app/logback.xml
