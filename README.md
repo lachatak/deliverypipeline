@@ -105,7 +105,7 @@ All the steps described here can be followed in the [CircleCi configuration file
 There is one extra thing worth mentioning. As you can see in the CircleCI configuration there are couple of referenced environmental variables like AWS keys, Dockerhub credentials. All those variables are coming from the CircleCI project configuration to avoid exposing sensitive data to the wide audience.
 
 ### HipChat ###
-It is always good to have a central place for team commonucation. It is even better when this channel can be feed by build tools like CircleCI. It send messages about the result of the build to the predefined HipChat room.
+It is always good to have a central place for team communication. It is even better when this channel can be feed by build tools like CircleCI. It send messages about the result of the build to the predefined HipChat room.
 
 ### Loggly ###
 Loggly provides a cloud based log management system. Behind the scene **logback** is configured the way to be able to send log messages to Loggly.
