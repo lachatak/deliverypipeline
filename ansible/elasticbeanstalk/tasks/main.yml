@@ -6,4 +6,4 @@
   shell: eb create {{ item.name }} -r {{ ebs_region }} -c {{ item.cname }} -t web -p docker -s --sample -k krisztian_lachata_aws --tags app={{ ebs_app_name }}
   with_items:
      - { name: 'deliverypipeline-node-1', cname: 'deliverypipeline-prod' }
-     - { name: 'deliverypipeline-node-2', cname: 'deliverypipeline-preprod' }
+     - { name: 'deliverypipeline-node-2', cname: 'deliverypipeline-staging' }
