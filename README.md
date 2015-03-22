@@ -75,11 +75,19 @@ To achieve the well desired goal I had to add some sbt plugins:
 - Sensitive application data like Loggly token, MongoLab credentials are stored as an encrypted [Ansible vault](http://docs.ansible.com/playbooks_vault.html).
 - After the preparation the new version of the application can be deployed. The hosting environment is ready
 
+![Alt text](pics/ansible.png?raw=true "Ansible")
+
 ### AWS Elastic Beanstalk ###
 - After the initial environment preparation step there will be an AWS Elastic Beanstalk application called ***deliverypipeline*** and the required two environments
 - The environments have ***deliverypipeline-node-1*** and ***deliverypipeline-node-2*** names. The first has ***deliverypipeline-prod.elasticbeanstalk.com*** public URL meanwhile the other has ***deliverypipeline-staging.elasticbeanstalk.com***
 - Both of the environments will host the Dockerized version of the aforementioned Spray REST application. 
 - The dockerized application requires two properties to be configured. ***-Dlogback.configurationFile=/app/logback.xml*** which points to the production logback file contains Loggly configurations. The other is ***-Dakka.configuration=/app/application.conf*** which contains configuration for the mongo backed persistence. Both of the files are mapped within the ***Dockerrun.aws.json*** file as a **volume** for the generated Docker image. That is the way how the live application has proper configuration relevant to the environment
+
+![Alt text](pics/ebs1.png?raw=true "Deployed environment")
+
+![Alt text](pics/ebs2.png?raw=true "Deployed environment")
+
+![Alt text](pics/version.png?raw=true "Created version for the application")
 
 ### Continous Integration ###
 Before the first deployment the environment should be prepared to host the application! See the previous two paragraph.
@@ -100,12 +108,29 @@ The build has the following steps:
 - Swap the staging and production URL. The staging environment will become the new production and vica versa. For the next deployment the new staging system will be used 
 - Notifies configured HipChat room about the result of the build process
 
+![Alt text](pics/circleci.png?raw=true "Swap URLs at the end")
+
 All the steps described here can be followed in the [CircleCi configuration file](circle.yml) added to the projects root directory. 
 
 There is one extra thing worth mentioning. As you can see in the CircleCI configuration there are couple of referenced environmental variables like AWS keys, Dockerhub credentials. All those variables are coming from the CircleCI project configuration to avoid exposing sensitive data to the wide audience.
 
+### Dockerhub ###
+Docker Hub manages the lifecycle of distributed apps with cloud services for building and sharing containers and automating workflows.
+
+![Alt text](pics/dockerhub.png?raw=true "The new application image")
+
 ### HipChat ###
 It is always good to have a central place for team communication. It is even better when this channel can be feed by build tools like CircleCI. It send messages about the result of the build to the predefined HipChat room.
 
+![Alt text](pics/hipchat.png?raw=true "Notification after successful build")
+
 ### Loggly ###
 Loggly provides a cloud based log management system. Behind the scene **logback** is configured the way to be able to send log messages to Loggly.
+
+![Alt text](pics/loggly.png?raw=true "Application logs from AWS")
+
+### Coveralls ###
+Coveralls provides a cloud based code coverage stats for the freshly built application
+
+![Alt text](pics/coveralls.png?raw=true "Code coverage")
+
