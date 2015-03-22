@@ -22,7 +22,7 @@ The running application is available [here](http://deliverypipeline-prod.elastic
 
 ## The process ##
 
-![Alt text](deliverypipeline_flow.jpg?raw=true "Pipeline Flow")
+![Alt text](pics/deliverypipeline_flow.jpg?raw=true "Pipeline Flow")
 
 1. Start provisioning AWS EBS application and environments with ***Ansible***
 2. AWS with the help of Ansible creates 2 preconfigured instances for the environments
