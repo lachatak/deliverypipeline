@@ -59,7 +59,7 @@ I have a simple REST based application. It provides some basic information about
 - Currently deployed version
 - Host name
 
-<p><a href="./pics/app.png" target="_blank"><img src="./pics/app.png" alt="Alt text" title="Application" style="width:600px;"></a></p>
+<p><a href="./pics/app.png" target="_blank"><img src="./pics/app.png" alt="Alt text" title="Application" align="left" width="600"></a></p>
 
 The application has Akka mongo persistence. Every time the application URL is called the internal state will be modified and persisted to a mongo store which is hosted by Mongolab. If I deploy a new version of the application it is going to use the same mongo store and fetch the previously persisted state.
 
