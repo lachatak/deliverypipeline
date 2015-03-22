@@ -48,8 +48,6 @@ The running application is available [here](http://deliverypipeline-prod.elastic
 
 Obviously in a real application it could be even more complex but it is a good basic solution for further development.
 
-## Zero downtime release with a lots of shinny extra features delivered!!! ##
-
 ## The ingredients ##
 
 ### The application ###
@@ -59,7 +57,7 @@ I have a simple REST based application. It provides some basic information about
 - Currently deployed version
 - Host name
 
-<img src="./pics/app.png" width="600" align="center"/>
+<img src="./pics/app.png" width="600"/>
 
 The application has Akka mongo persistence. Every time the application URL is called the internal state will be modified and persisted to a mongo store which is hosted by Mongolab. If I deploy a new version of the application it is going to use the same mongo store and fetch the previously persisted state.
 
@@ -77,7 +75,7 @@ To achieve the well desired goal I had to add some sbt plugins:
 - Sensitive application data like Loggly token, MongoLab credentials are stored as an encrypted [Ansible vault](http://docs.ansible.com/playbooks_vault.html).
 - After the preparation the new version of the application can be deployed. The hosting environment is ready
 
-![Alt text](pics/ansible.png?raw=true "Ansible")
+<img src="./pics/ansible.png" width="600"/>
 
 ### AWS Elastic Beanstalk ###
 - After the initial environment preparation step there will be an AWS Elastic Beanstalk application called ***deliverypipeline*** and the required two environments
@@ -85,11 +83,11 @@ To achieve the well desired goal I had to add some sbt plugins:
 - Both of the environments will host the Dockerized version of the aforementioned Spray REST application. 
 - The dockerized application requires two properties to be configured. ***-Dlogback.configurationFile=/app/logback.xml*** which points to the production logback file contains Loggly configurations. The other is ***-Dakka.configuration=/app/application.conf*** which contains configuration for the mongo backed persistence. Both of the files are mapped within the ***Dockerrun.aws.json*** file as a **volume** for the generated Docker image. That is the way how the live application has proper configuration relevant to the environment
 
-![Alt text](pics/ebs1.png?raw=true "Deployed environment")
+<img src="./pics/ebs1.png" width="600"/>
 
-![Alt text](pics/ebs2.png?raw=true "Deployed environment")
+<img src="./pics/ebs2.png" width="600"/>
 
-![Alt text](pics/version.png?raw=true "Created version for the application")
+<img src="./pics/version.png" width="600"/>
 
 ### Continous Integration ###
 Before the first deployment the environment should be prepared to host the application! See the previous two paragraph.
@@ -110,7 +108,7 @@ The build has the following steps:
 - Swap the staging and production URL. The staging environment will become the new production and vica versa. For the next deployment the new staging system will be used 
 - Notifies configured HipChat room about the result of the build process
 
-![Alt text](pics/circleci.png?raw=true "Swap URLs at the end")
+<img src="./pics/circleci.png" width="600"/>
 
 All the steps described here can be followed in the [CircleCi configuration file](circle.yml) added to the projects root directory. 
 
@@ -119,20 +117,21 @@ There is one extra thing worth mentioning. As you can see in the CircleCI config
 ### Dockerhub ###
 Docker Hub manages the lifecycle of distributed apps with cloud services for building and sharing containers and automating workflows.
 
-![Alt text](pics/dockerhub.png?raw=true "The new application image")
+<img src="./pics/dockerhub.png" width="600"/>
 
 ### HipChat ###
 It is always good to have a central place for team communication. It is even better when this channel can be feed by build tools like CircleCI. It send messages about the result of the build to the predefined HipChat room.
 
-![Alt text](pics/hipchat.png?raw=true "Notification after successful build")
+<img src="./pics/hipchat.png" width="600"/>
 
 ### Loggly ###
 Loggly provides a cloud based log management system. Behind the scene **logback** is configured the way to be able to send log messages to Loggly.
 
-![Alt text](pics/loggly.png?raw=true "Application logs from AWS")
+<img src="./pics/loggly.png" width="600"/>
 
 ### Coveralls ###
 Coveralls provides a cloud based code coverage stats for the freshly built application
 
-![Alt text](pics/coveralls.png?raw=true "Code coverage")
+<img src="./pics/coveralls.png" width="600"/>
 
+## Zero downtime release with a lots of shinny extra features delivered!!! ##
